@@ -1,6 +1,8 @@
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
 
+// TODO: implement toString(), match insert with BST code
+
 public class KdTree {
 
     private Node root;

@@ -10,6 +10,5 @@ public class PointSET {
     public void draw() { }
     public Iterable<Point2D> range(RectHV rect) { return null; }
     public Point2D nearest(Point2D p) { return  null; }
-
     public static void main(String[] args) { }
 }
