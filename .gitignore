@@ -1,3 +1,10 @@
 # Project exclude paths
 /.lift/
 /.idea/
+/RangeSearchVisualizer.class
+/PointSET.class
+/NearestNeighborVisualizer.class
+/KdTreeVisualizer.class
+/KdTreeGenerator.class
+/KdTree.class
+/Algorithms, Part I.iml
