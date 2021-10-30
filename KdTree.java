@@ -44,6 +44,21 @@ public class KdTree {
             }
         }
 
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) return true;
+
+            if (obj == null) return false;
+
+            if (obj.getClass() == this.getClass()) {
+                Node other = (Node) obj;
+                return other.point.equals(this.point);
+            }
+            else {
+                return false;
+            }
+        }
+
         public void setLeft(Node left) {
             this.left = left;
         }
@@ -129,9 +144,18 @@ public class KdTree {
         StringBuilder stringBuilder = new StringBuilder();
 
         queue.add(node);
+        Node rightNode = node;
+
         while (!queue.isEmpty()) {
             Node pop = queue.poll();
-            stringBuilder.append(pop.toString());
+
+            if (pop.equals(rightNode)) {
+                stringBuilder.append(pop.toString() + "\n");
+                rightNode = rightNode.getRight();
+            }
+            else {
+                stringBuilder.append(pop.toString());
+            }
 
             if (pop.getLeft() != null)
                 queue.add(pop.getLeft());
@@ -149,11 +173,17 @@ public class KdTree {
 
     public static void main(String[] args) {
         KdTree kd = new KdTree();
-        kd.insert(new Point2D(1, 1));
-        kd.insert(new Point2D(2, 3));
-        kd.insert(new Point2D(4, 5));
-        kd.insert(new Point2D(6, 7));
-        kd.insert(new Point2D(8, 9));
+        kd.insert(new Point2D(1, 1)); //в
+        kd.insert(new Point2D(5, 12));
+        kd.insert(new Point2D(-3, 8));
+        kd.insert(new Point2D(6, 13));
+        kd.insert(new Point2D(8, 15));
+        kd.insert(new Point2D(22, -4));
+        kd.insert(new Point2D(37, 1));
+        kd.insert(new Point2D(0, 0));
+        kd.insert(new Point2D(2, -1));
+        kd.insert(new Point2D(-9, -9));
+
 
         System.out.println(kd);
     }
