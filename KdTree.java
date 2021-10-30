@@ -1,6 +1,8 @@
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
 
+import java.util.LinkedList;
+
 // TODO: implement toString(), match insert with BST code
 
 public class KdTree {
@@ -61,6 +63,10 @@ public class KdTree {
         public void setVertical(boolean vertical) {
             this.vertical = vertical;
         }
+
+        public String toString() {
+            return point.toString();
+        }
     }
 
     public KdTree() {
@@ -82,9 +88,8 @@ public class KdTree {
     private Node insert(Node node, Node newNode) {
         if (node == null) {
             node = newNode;
-            newNode.setVertical(!node.isVertical());
             ++numberOfNodes;
-            return newNode;
+            return node;
         }
 
         int compare = node.compareTo(newNode);
@@ -94,6 +99,12 @@ public class KdTree {
         else {
             node.setRight(insert(node.getRight(), newNode));
         }
+
+        if (node.getLeft() != null)
+            node.getLeft().setVertical(!node.isVertical());
+
+        if (node.getRight() != null)
+            node.getRight().setVertical(!node.isVertical());
 
        return node;
     }
@@ -113,7 +124,37 @@ public class KdTree {
         return null;
     }
 
-    public static void main(String[] args) {
+    private String toString(Node node) {
+        java.util.Queue<Node> queue = new LinkedList<>();
+        StringBuilder stringBuilder = new StringBuilder();
 
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            Node pop = queue.poll();
+            stringBuilder.append(pop.toString());
+
+            if (pop.getLeft() != null)
+                queue.add(pop.getLeft());
+
+            if (pop.getRight() != null)
+                queue.add(pop.getRight());
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public String toString() {
+        return  toString(root);
+    }
+
+    public static void main(String[] args) {
+        KdTree kd = new KdTree();
+        kd.insert(new Point2D(1, 1));
+        kd.insert(new Point2D(2, 3));
+        kd.insert(new Point2D(4, 5));
+        kd.insert(new Point2D(6, 7));
+        kd.insert(new Point2D(8, 9));
+
+        System.out.println(kd);
     }
 }
