@@ -18,6 +18,7 @@ public class KdTree {
         private Node right;
 
 
+
         Node(Point2D point) {
             this.point = point;
         }
@@ -35,13 +36,10 @@ public class KdTree {
         }
 
         @Override
-        public int compareTo(Node node) {
-            if (isVertical()) {
-                return Double.compare(this.x(), node.x());
-            }
-            else {
-                return Double.compare(this.y(), node.y());
-            }
+        public int compareTo(Node other) {
+            return  isVertical()
+                    ? Double.compare(this.x(), other.x())
+                    : Double.compare(this.y(), other.y());
         }
 
         @Override
@@ -50,13 +48,10 @@ public class KdTree {
 
             if (obj == null) return false;
 
-            if (obj.getClass() == this.getClass()) {
-                Node other = (Node) obj;
-                return other.point.equals(this.point);
-            }
-            else {
-                return false;
-            }
+            if (obj.getClass() == this.getClass())
+                return ((Node) obj).point.equals(this.point);
+
+            return false;
         }
 
         public void setLeft(Node left) {
