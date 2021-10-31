@@ -3,8 +3,6 @@ import edu.princeton.cs.algs4.RectHV;
 
 import java.util.LinkedList;
 
-// TODO: implement toString(), match insert with BST code
-
 public class KdTree {
 
     private Node root;
@@ -163,8 +161,21 @@ public class KdTree {
         return null;
     }
 
-    public KdTree nearest(Point2D query) {
-        return null;
+    public Point2D nearest(Point2D query) {
+        Node nearest = root;
+        nearest(root, new Node(query), nearest);
+        return nearest.point;
+    }
+
+    private void nearest(Node currentNode, Node searchNode, Node nearest) {
+        if (currentNode == null || currentNode == searchNode) return;
+
+        if (currentNode.point.distanceSquaredTo(searchNode.point) <
+            searchNode.point.distanceSquaredTo(nearest.point))
+            nearest = currentNode;
+
+        nearest(currentNode.getLeft(), searchNode, nearest);
+        nearest(currentNode.getRight(), searchNode, nearest);
     }
 
     private String toString(Node node) {
