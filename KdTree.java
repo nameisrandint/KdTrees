@@ -135,10 +135,18 @@ public class KdTree {
     }
 
     public boolean contains(Point2D p) {
-        return false;
     }
 
     public void draw() {
+        draw(root);
+    }
+
+    private void draw(Node node) {
+        if (node == null) return;
+        node.point.draw();
+
+        draw(node.getLeft());
+        draw(node.getRight());
     }
 
     public Iterable<Point2D> range(RectHV rect) {
