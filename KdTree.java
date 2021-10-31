@@ -1,7 +1,9 @@
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class KdTree {
 
@@ -158,7 +160,15 @@ public class KdTree {
     }
 
     public Iterable<Point2D> range(RectHV rect) {
-        return null;
+        List<Point2D> list = new ArrayList<>();
+
+        range(rect, list, root);
+
+        return list;
+    }
+
+    private void range(RectHV rect, List<Point2D> list, Node current) {
+        if (current == null) return;
     }
 
     public Point2D nearest(Point2D query) {
