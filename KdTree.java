@@ -75,7 +75,7 @@ public class KdTree {
         }
 
         public String toString() {
-            return point.toString();
+            return point.toString() + isVertical();
         }
     }
 
@@ -95,28 +95,43 @@ public class KdTree {
         root = insert(root, new Node(p));
     }
 
-    private Node insert(Node node, Node newNode) {
-        if (node == null) {
-            node = newNode;
-            ++numberOfNodes;
-            return node;
+    private Node insert(Node currentNode, Node newNode) {
+        if (isEmpty()) {
+            newNode.setVertical(true);
+            numberOfNodes = 1;
+            return newNode;
         }
 
-        int compare = node.compareTo(newNode);
+        if (currentNode == null) {
+            ++numberOfNodes;
+            return newNode;
+        }
+
+        int compare = currentNode.compareTo(newNode);
+
         if (compare >= 0) {
-            node.setLeft(insert(node.getLeft(), newNode));
+            currentNode.setLeft(insert(currentNode.getLeft(), newNode));
         }
         else {
-            node.setRight(insert(node.getRight(), newNode));
+            currentNode.setRight(insert(currentNode.getRight(), newNode));
         }
 
-        if (node.getLeft() != null)
-            node.getLeft().setVertical(!node.isVertical());
+        if (currentNode.getLeft() != null) {
+            if (currentNode.getLeft() == newNode) {
+                newNode.setVertical(!currentNode.isVertical());
+            }
 
-        if (node.getRight() != null)
-            node.getRight().setVertical(!node.isVertical());
+        }
 
-       return node;
+
+        if (currentNode.getRight() != null) {
+            if (currentNode.getRight() == newNode) {
+                newNode.setVertical(!currentNode.isVertical());
+            }
+        }
+
+
+       return currentNode;
     }
 
     public boolean contains(Point2D p) {
