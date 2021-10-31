@@ -135,6 +135,16 @@ public class KdTree {
     }
 
     public boolean contains(Point2D p) {
+        return contains(root, new Node(p));
+    }
+
+    private boolean contains(Node currentNode, Node serachNode) {
+        if (currentNode == null) return false;
+
+        if (currentNode.equals(serachNode)) return true;
+
+        return contains(currentNode.getLeft(), serachNode) ||
+                contains(currentNode.getRight(), serachNode);
     }
 
     public void draw() {
